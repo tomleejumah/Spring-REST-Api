@@ -1,4 +1,4 @@
-package com.restapi.execption;
+package com.restapi.rest_demo.execption;
 
 import org.springframework.http.HttpStatus;
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.restapi.rest_demo.execption.CloudVendorNotFoundException;
 import com.restapi.rest_demo.model.CloudVendor;
 import com.restapi.rest_demo.repository.CloudVendorRepository;
 import com.restapi.rest_demo.service.CloudVendorService;
@@ -31,12 +32,22 @@ public class CloudServiceImpl implements CloudVendorService{
 
   @Override
   public String deleteCloudVendor(String cloudVendorId) {
+    CloudVendor cloudVndor = new CloudVendor();
+    cloudVndor = cloudVendorRepository.findById(cloudVendorId).orElse(null);
+
+    if (cloudVndor == null) {
+      throw new CloudVendorNotFoundException("Vendor with id " + cloudVendorId + " not found");
+  }
+      
     cloudVendorRepository.deleteById(cloudVendorId);
     return "successfully deleted";
   }
 
   @Override
   public CloudVendor getCloudVendorById(String cloudVendorId) {
+
+    if(cloudVendorRepository.findById(cloudVendorId).isEmpty())
+      throw new CloudVendorNotFoundException("Vendor with id " + cloudVendorId + " not found");  
     return cloudVendorRepository.findById(cloudVendorId).get();
   }
 

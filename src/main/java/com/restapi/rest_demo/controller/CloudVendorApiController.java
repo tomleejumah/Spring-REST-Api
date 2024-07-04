@@ -44,6 +44,6 @@ public class CloudVendorApiController {
     @DeleteMapping("{vendorId}")
     public String deleteCloudVendorDetails(@PathVariable("vendorId")String vendorID){
         cloudVendorService.deleteCloudVendor(vendorID);
-        return "Cloud Vendor deleted successfully";
+        return "deleted";
     }
 }
