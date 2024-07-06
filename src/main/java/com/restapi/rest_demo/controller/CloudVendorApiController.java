@@ -39,15 +39,25 @@ public class CloudVendorApiController {
         return "Cloud Vendor created successfully";
     }
 
-    @PutMapping
-    public String updateCloudVendorDetails(@RequestBody CloudVendor cloudVendor){
-        cloudVendorService.updateCloudVendor(cloudVendor);
-        return "cloud Vendor updated successfully";
-    }
+    @PutMapping("{vendorId}")
+     public String updateCloudVendorDetails(@PathVariable("vendorId") String vendorId,@RequestBody CloudVendor cloudVendor){
+        CloudVendor updatedVendor = cloudVendorService.getCloudVendorById(vendorId);
+        try {
+            updatedVendor.setVendorId(vendorId); // Ensure the ID is set correctly for update
+            updatedVendor.setVendorAddress(cloudVendor.getVendorAddress());
+            updatedVendor.setVendorName(cloudVendor.getVendorName());
+            updatedVendor.setVendorPhoneNumber(cloudVendor.getVendorPhoneNumber());
+            //            return ResponseEntity.ok(message);
+            return cloudVendorService.updateCloudVendor(updatedVendor);
+        } catch (IllegalArgumentException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return e.getMessage();
+        }
+}
 
     @DeleteMapping("{vendorId}")
     public String deleteCloudVendorDetails(@PathVariable("vendorId")String vendorID){
-        cloudVendorService.deleteCloudVendor(vendorID);
-        return "deleted";
+      return  cloudVendorService.deleteCloudVendor(vendorID);
+        // return "deleted";
     }
 }

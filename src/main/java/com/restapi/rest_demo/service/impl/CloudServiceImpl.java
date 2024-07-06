@@ -1,6 +1,7 @@
 package com.restapi.rest_demo.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -26,21 +27,28 @@ public class CloudServiceImpl implements CloudVendorService{
 
   @Override
   public String updateCloudVendor(CloudVendor cloudVendor) {
-    cloudVendorRepository.save(cloudVendor);
-    return "vendor updated";
+    Optional<CloudVendor> existingVendor = cloudVendorRepository.findById(cloudVendor.getVendorId());
+    if (existingVendor.isPresent()) {
+      CloudVendor vendorToUpdate = existingVendor.get();
+      vendorToUpdate.setVendorName(cloudVendor.getVendorName());
+      vendorToUpdate.setVendorAddress(cloudVendor.getVendorAddress());
+      vendorToUpdate.setVendorAddress(cloudVendor.getVendorAddress());
+      cloudVendorRepository.save(vendorToUpdate);
+      return "update successfully";
+    } else {
+      throw new IllegalArgumentException("Vendor not found with ID: " + cloudVendor.getVendorId());
+    }
   }
 
   @Override
-  public String deleteCloudVendor(String cloudVendorId) {
-    CloudVendor cloudVndor = new CloudVendor();
-    cloudVndor = cloudVendorRepository.findById(cloudVendorId).orElse(null);
+  public String deleteCloudVendor (String cloudVendorId) throws IllegalArgumentException {
 
-    if (cloudVndor == null) {
-      throw new CloudVendorNotFoundException("Vendor with id " + cloudVendorId + " not found");
-  }
-      
-    cloudVendorRepository.deleteById(cloudVendorId);
-    return "successfully deleted";
+    if (cloudVendorRepository.existsById(cloudVendorId)) {
+      cloudVendorRepository.deleteById(cloudVendorId);
+      return "successfully deleted";
+    } else {
+      return ("Vendor with ID: " + cloudVendorId + " not found");
+    }
   }
 
   @Override
