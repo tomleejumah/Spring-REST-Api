@@ -1,8 +1,11 @@
 package com.restapi.rest_demo.controller;
 
 import com.restapi.rest_demo.model.CloudVendor;
+import com.restapi.rest_demo.response.ResponseHandler;
 import com.restapi.rest_demo.service.CloudVendorService;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +22,9 @@ public class CloudVendorApiController {
 
 // get specific cloud vendor
     @GetMapping("{vendorId}")
-    public CloudVendor getCloudVendorDetails(@PathVariable("vendorId") String vendorID){
-        return cloudVendorService.getCloudVendorById(vendorID);
+    public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorID){
+        return ResponseHandler.ResponseBuilder("Req Vendor details are given here"
+                , HttpStatus.OK, cloudVendorService.getCloudVendorById(vendorID));
     }
 
 // get all cloud vendors in db
