@@ -23,6 +23,9 @@ public class CloudVendor {
         this.vendorPhoneNumber = vendorPhoneNumber;
     }
 
+    public CloudVendor(CloudVendor cloudVendor) {
+    }
+
     public String getVendorId() {
         return vendorId;
     }

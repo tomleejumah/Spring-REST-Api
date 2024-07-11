@@ -29,6 +29,7 @@ public class CloudServiceImpl implements CloudVendorService{
   public String updateCloudVendor(CloudVendor cloudVendor) {
     Optional<CloudVendor> existingVendor = cloudVendorRepository.findById(cloudVendor.getVendorId());
     if (existingVendor.isPresent()) {
+      // makes sure we maintain the id
       CloudVendor vendorToUpdate = existingVendor.get();
       vendorToUpdate.setVendorName(cloudVendor.getVendorName());
       vendorToUpdate.setVendorAddress(cloudVendor.getVendorAddress());

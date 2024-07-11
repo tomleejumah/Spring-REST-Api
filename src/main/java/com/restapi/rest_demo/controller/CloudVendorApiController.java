@@ -42,6 +42,7 @@ public class CloudVendorApiController {
     @PutMapping("{vendorId}")
      public String updateCloudVendorDetails(@PathVariable("vendorId") String vendorId,@RequestBody CloudVendor cloudVendor){
         CloudVendor updatedVendor = cloudVendorService.getCloudVendorById(vendorId);
+//        CloudVendor updatedVendor = new CloudVendor(cloudVendor);
         try {
             updatedVendor.setVendorId(vendorId); // Ensure the ID is set correctly for update
             updatedVendor.setVendorAddress(cloudVendor.getVendorAddress());
