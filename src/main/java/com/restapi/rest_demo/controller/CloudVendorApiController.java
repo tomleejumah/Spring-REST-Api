@@ -4,6 +4,11 @@ import com.restapi.rest_demo.model.CloudVendor;
 import com.restapi.rest_demo.response.ResponseHandler;
 import com.restapi.rest_demo.service.CloudVendorService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cloudvendor")
+@Tag(name = "User", description = "Vendor management APIs")
 public class CloudVendorApiController {
 
     CloudVendorService cloudVendorService;
@@ -21,6 +27,10 @@ public class CloudVendorApiController {
     }
 
 // get specific cloud vendor
+    @Operation(summary = "Gets a cloudVendor by ID", description = "Returns a cloudVendor based on the ID")
+    @ApiResponse(responseCode = "200", description = "Successful operation",
+            content = @Content(schema = @Schema(implementation = CloudVendor.class)))
+    @ApiResponse(responseCode = "404", description = "User not found")
     @GetMapping("{vendorId}")
     public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorID){
         return ResponseHandler.ResponseBuilder("Req Vendor details are given here"
@@ -28,12 +38,12 @@ public class CloudVendorApiController {
     }
 
 // get all cloud vendors in db
-    @GetMapping()
+    @GetMapping("/")
     public List<CloudVendor> getAllCloudVendorDetails(){
        return cloudVendorService.getAllCloudVendors();
     }
 
-    @PostMapping
+    @PostMapping("/")
     public String createCloudVendorDetails(@RequestBody CloudVendor cloudVendor){
         cloudVendorService.createCloudVendor(cloudVendor);
         return "Cloud Vendor created successfully";
