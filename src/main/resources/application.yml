@@ -18,3 +18,21 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+#    &allowPublicKeyRetrieval=true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#        include: "health, beans, metrics"
+#        exclude: "caches"
+#    base-path: "/management-dashboard"
+  endpoint:
+    health:
+      show-details: always
+
+dummyService:
+  address: 127.0.0.1
+  port: 8080
