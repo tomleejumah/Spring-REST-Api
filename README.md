@@ -53,50 +53,66 @@ The API supports the following operations:
 1. Clone the repository:
    ```sh
    git clone https://github.com/your-repo/cloudvendor-api.git
-   cd cloudvendor-api
+   cd cloudvendor-apimvn
 
 2. Build the project using Maven:
+   ```
+   clean install
+   Run the application
+   mvn spring-boot:run
 
-mvn clean install
-Run the application:
-mvn spring-boot:run
-
-Usage
+### Usage
 The API can be accessed via the following endpoints:
 
 Create Cloud Vendor:
+```
 POST /api/cloudvendors
+```
 
 Update Cloud Vendor:
+```
 PUT /api/cloudvendors
+```
 
 Delete Cloud Vendor:
+```
 DELETE /api/cloudvendors/{id}
+```
 
 Get Cloud Vendor by ID:
+```
 GET /api/cloudvendors/{id}
+````
 
 Get All Cloud Vendors:
+```
 GET /api/cloudvendors
+```
 
-Swagger API Documentation
+### Swagger API Documentation
 Access the Swagger UI to explore and test the API endpoints:
+```
 http://localhost:8080/swagger-ui.html (change the port accordingly)
 http://localhost:8080/api-docs
+```
 
+### Actuator Endpoints
+-Access monitoring and custom actuator endpoints:
 
-Actuator Endpoints
-Access monitoring and custom actuator endpoints:
-Health Check:
+#### Health Check:
+```
 GET /actuator/health
+```
 
-Custom Actuator Endpoint:
+#### Custom Actuator Endpoint:
+```
 GET /actuator/custom-endpoint
+```
 
-Contributing
-you can start with formatting the readme
-Contributions are welcome! Please create a pull request with your changes or open an issue for any bugs or feature requests.
+### Contributing
+Contributions are welcome! Please create a pull request with your
+changes or open an issue for any bugs or feature requests.
 
 
-License
+### License
 This project is Free for anyone
