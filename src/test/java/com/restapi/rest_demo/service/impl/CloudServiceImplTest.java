@@ -37,7 +37,7 @@ class CloudServiceImplTest {
         // MockitoAnnotations.initMocks(this);
         autoCloseable = MockitoAnnotations.openMocks(this);
         cloudVendorService = new CloudServiceImpl(cloudVendorRepository);
-        cloudVendor = new CloudVendor("1", "Test Vendor"
+        cloudVendor = new CloudVendor( "Test Vendor"
             , "Test Address", "TestNumber");
     }
 
@@ -62,7 +62,7 @@ class CloudServiceImplTest {
 
     @Test
     void testUpdateCloudVendor() {
-        when(cloudVendorRepository.findById("1")).thenReturn(Optional.of(cloudVendor));
+        when(cloudVendorRepository.findById(1)).thenReturn(Optional.of(cloudVendor));
 
         // Performing update
         cloudVendor.setVendorName("UpdatedVendorName");
@@ -79,13 +79,13 @@ class CloudServiceImplTest {
     @Test
     void testDeleteCloudVendor() {
         // Arrange
-        when(cloudVendorRepository.existsById("1")).thenReturn(true);
+        when(cloudVendorRepository.existsById(1)).thenReturn(true);
 
         // Act
-        cloudVendorService.deleteCloudVendor("1");
+        cloudVendorService.deleteCloudVendor(1);
 
         // Assert
-        verify(cloudVendorRepository, times(1)).deleteById("1");
+        verify(cloudVendorRepository, times(1)).deleteById(1);
 
 //        mock(CloudVendor.class);
 //        mock(CloudVendorRepository.class,Mockito.CALLS_REAL_METHODS);
@@ -100,11 +100,11 @@ class CloudServiceImplTest {
         // mock(CloudVendor.class);
         // mock(CloudVendorRepository.class);
 
-        when(cloudVendorRepository.findById("1")).thenReturn(Optional.ofNullable(cloudVendor));
+        when(cloudVendorRepository.findById(1)).thenReturn(Optional.ofNullable(cloudVendor));
 
-        CloudVendor result = cloudVendorService.getCloudVendorById("1");
+        CloudVendor result = cloudVendorService.getCloudVendorById(1);
         assertNotNull(result);
-        assertEquals("1", result.getVendorId());
+        assertEquals(1, result.getVendorId());
         assertEquals("Test Vendor", result.getVendorName());
         assertEquals("Test Address", result.getVendorAddress());
     }
@@ -113,8 +113,8 @@ class CloudServiceImplTest {
     void testGetAllCloudVendors() {
         // Given
         List<CloudVendor> mockCloudVendors = List.of(
-            new CloudVendor("1", "Vendor1", "Description1","phone"),
-            new CloudVendor("2", "Vendor2", "Description2","phone")
+            new CloudVendor( "Vendor1", "Description1","phone"),
+            new CloudVendor( "Vendor2", "Description2","phone")
         );
         when(cloudVendorRepository.findAll()).thenReturn(mockCloudVendors);
 

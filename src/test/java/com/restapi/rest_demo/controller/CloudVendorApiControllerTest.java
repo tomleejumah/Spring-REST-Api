@@ -36,8 +36,8 @@ class CloudVendorApiControllerTest {
 
     @BeforeEach
     void setUp() {
-        cloudVendorOne = new CloudVendor("1","Azure","Kenya","Nakuru");
-        cloudVendorTwo = new CloudVendor("2","Google","Uganda","Kampala");
+        cloudVendorOne = new CloudVendor("Azure","Kenya","Nakuru");
+        cloudVendorTwo = new CloudVendor("Google","Uganda","Kampala");
         cloudVendorList.add(cloudVendorOne);
         cloudVendorList.add(cloudVendorTwo);
     }
@@ -48,7 +48,7 @@ class CloudVendorApiControllerTest {
 
     @Test
     void testGetCloudVendorDetails() throws Exception{
-        when(cloudVendorService.getCloudVendorById("1")).thenReturn(cloudVendorOne);
+        when(cloudVendorService.getCloudVendorById(1)).thenReturn(cloudVendorOne);
         this.mockMvc.perform(get("/cloudvendor/1"))
                 .andDo(print()).andExpect(status().isOk());
     }
@@ -87,7 +87,7 @@ class CloudVendorApiControllerTest {
         ObjectWriter objectWriter = mapper.writer().withDefaultPrettyPrinter();
         String requestJson = objectWriter.writeValueAsString(cloudVendorOne);
 
-        String vendorId = cloudVendorOne.getVendorId();
+        Integer vendorId = cloudVendorOne.getVendorId();
 
         this.mockMvc.perform(put("/cloudvendor/"+ vendorId)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -97,7 +97,7 @@ class CloudVendorApiControllerTest {
 
     @Test
     void testDeleteCloudVendorDetails() throws Exception{
-        when(cloudVendorService.deleteCloudVendor("1"))
+        when(cloudVendorService.deleteCloudVendor(1))
                 .thenReturn("successfully deleted");
         this.mockMvc.perform(delete("/cloudvendor/1"))
                 .andDo(print()).andExpect(status().isOk());

@@ -42,7 +42,7 @@ public class CloudServiceImpl implements CloudVendorService{
   }
 
   @Override
-  public String deleteCloudVendor (String cloudVendorId) throws IllegalArgumentException {
+  public String deleteCloudVendor (Integer cloudVendorId) throws IllegalArgumentException {
 
     if (cloudVendorRepository.existsById(cloudVendorId)) {
       cloudVendorRepository.deleteById(cloudVendorId);
@@ -53,7 +53,7 @@ public class CloudServiceImpl implements CloudVendorService{
   }
 
   @Override
-  public CloudVendor getCloudVendorById(String cloudVendorId) {
+  public CloudVendor getCloudVendorById(Integer cloudVendorId) {
 
     if(cloudVendorRepository.findById(cloudVendorId).isEmpty())
       throw new CloudVendorNotFoundException("Vendor with id " + cloudVendorId + " not found");  

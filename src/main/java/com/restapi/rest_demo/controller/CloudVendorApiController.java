@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +29,15 @@ public class CloudVendorApiController {
     }
 
 // get specific cloud vendor
+    public static final Logger logInfo = LoggerFactory.getLogger(CloudVendor.class);
     @Operation(summary = "Gets a cloudVendor by ID", description = "Returns a cloudVendor based on the ID")
     @ApiResponse(responseCode = "200", description = "Successful operation",
             content = @Content(schema = @Schema(implementation = CloudVendor.class)))
     @ApiResponse(responseCode = "404", description = "User not found")
     @GetMapping("{vendorId}")
-    public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") String vendorID){
+    public ResponseEntity<Object> getCloudVendorDetails(@PathVariable("vendorId") Integer vendorID){
+        logInfo.info("CloudVendor Logging is enabled");
+        logInfo.debug("debug logging");
         return ResponseHandler.ResponseBuilder("Req Vendor details are given here"
                 , HttpStatus.OK, cloudVendorService.getCloudVendorById(vendorID));
     }
@@ -50,7 +55,7 @@ public class CloudVendorApiController {
     }
 
     @PutMapping("{vendorId}")
-     public String updateCloudVendorDetails(@PathVariable("vendorId") String vendorId,@RequestBody CloudVendor cloudVendor){
+     public String updateCloudVendorDetails(@PathVariable("vendorId") Integer vendorId,@RequestBody CloudVendor cloudVendor){
         CloudVendor updatedVendor = cloudVendorService.getCloudVendorById(vendorId);
 //        CloudVendor updatedVendor = new CloudVendor(cloudVendor);
         try {
@@ -67,7 +72,7 @@ public class CloudVendorApiController {
 }
 
     @DeleteMapping("{vendorId}")
-    public String deleteCloudVendorDetails(@PathVariable("vendorId")String vendorID){
+    public String deleteCloudVendorDetails(@PathVariable("vendorId")Integer vendorID){
       return  cloudVendorService.deleteCloudVendor(vendorID);
         // return "deleted";
     }
