@@ -115,4 +115,4 @@ changes or open an issue for any bugs or feature requests.
 
 
 ### License
-This project is Free for anyone
+This project is FREE for everyone
