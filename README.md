@@ -72,12 +72,12 @@ The API can be accessed via the following endpoints:
 
 Create Cloud Vendor:
 ```
-POST /api/cloudvendors
+POST /api/cloudvendors/
 ```
 
 Update Cloud Vendor:
 ```
-PUT /api/cloudvendors
+PUT /api/cloudvendors/
 ```
 
 Delete Cloud Vendor:
@@ -92,7 +92,7 @@ GET /api/cloudvendors/{id}
 
 Get All Cloud Vendors:
 ```
-GET /api/cloudvendors
+GET /api/cloudvendors/
 ```
 
 ### Swagger API Documentation
